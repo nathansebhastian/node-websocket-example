@@ -1,0 +1,26 @@
+<body>
+  <h1>WebSocket Client Implementation</h1>
+  <button id="wsConnect">Connect to WebSocket</button>
+  <script>
+    const button = document.querySelector("#wsConnect");
+    button.addEventListener("click", () => {
+      const url = "ws://localhost:8080";
+      const wsClient = new WebSocket(url);
+
+      wsClient.onopen = () => {
+        console.log(`Connection to ${url} has been established`);
+        wsClient.send("Hello World!");
+      };
+
+      // receive message from the server
+      wsClient.onmessage = (e) => {
+        console.log(e.data);
+      };
+
+      // Log WebSocket error events
+      wsClient.onerror = (err) => {
+        console.log(`WebSocket error: ${err}`);
+      };
+    });
+  </script>
+</body>
